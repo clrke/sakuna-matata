@@ -44,6 +44,4 @@ def home(request):
         return HttpResponse('Accepted')
 
     else:
-        migrate.Command().handle()
-        User.objects.create_superuser('angelhack', 'angelhack@mailinator.com', 'angelhack2015')
         return JsonResponse(User.objects.all()[0].email, safe=False)

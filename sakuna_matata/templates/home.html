@@ -5,16 +5,34 @@
 	<link rel = "stylesheet" type="text/css" href = "{% static 'bootstrap/css/bootstrap.css'%} ">
 	<title>Test</title>
 </head>
-<body>
+<body class="container">
 	<div class = "row">
 		<div class = "col-md-2">
-		<h1>Channels</h1>
+            <div class="list-group">
+                <div class="list-group-item list-group-item-heading">
+                    CHANNELS
+                </div>
+                {% for channel in channels %}
+                    {% if channel.name == current_channel.name %}
+                        <div class="list-group-item list-group-item-success"> {{ channel }} </div>
+                    {% else %}
+                        <a href="/channels/{{ channel.name }}" class="list-group-item"> {{ channel }} </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
 		</div>
 		<div class = "col-md-6">
-		<center>messages here</center>
+            <div class="list-group">
+                <div class="list-group-item list-group-item-heading">
+                    MESSAGES
+                </div>
+                {% for message in current_channel.message_set.all %}
+                    <a href="#" class="list-group-item"> {{ message.message }} </a>
+                {% endfor %}
+            </div>
 		</div>
 		<div class = "col-md-4">
-		<center>map here</center>
+            <center>map here</center>
 		</div>
 	</div>
 

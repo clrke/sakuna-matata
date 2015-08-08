@@ -80,10 +80,24 @@ WSGI_APPLICATION = 'sakuna_matata.wsgi.application'
 
 DATABASES = {
     'default': {
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'ENGINE': 'django.db.backends.sqlite3',
-    },
-
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
+    # 'bluemix': {
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'us-cdbr-iron-east-02.cleardb.net',
+        'PORT': '3306',
+        'USER': 'ba032ce49095ef',
+        'NAME': 'ad_4afd5ac75c76575',
+        'PASSWORD': 'c0f004ab',
+        'OPTIONS': {
+            'ssl': {
+                'ca': os.path.join(BASE_DIR, 'mysql/cleardb-ca.pem'),
+                'cert': os.path.join(BASE_DIR, 'mysql/266e3b7532d545-cert.pem'),
+                'key': os.path.join(BASE_DIR, 'mysql/key.pem'),
+            },
+        },
+    }
 }
 
 

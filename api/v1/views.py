@@ -10,7 +10,7 @@ def home(request):
         if request.headers["message_type"] == "incoming":
             try:
                 #request.headers["message"] do something with the messge here
-                return HttpResponse('Accepted' + request.headers["message"])
+                return HttpResponse('Accepted')
             except Exception:
                 return HttpResponse('Error')
         else:

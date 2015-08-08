@@ -119,17 +119,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-SENTIMENT_ANALYSIS_URL = 'http://sakuna-matata.mybluemix.net/analyze'
+SENTIMENT_ANALYSIS_URL = 'http://sentiment-analyzer.mybluemix.net/analyze'
 
-# On production
-if os.environ['DJANGO_ENVIRONMENT'] == 'production':
-    import dj_database_url
-    DATABASES['default'] =  dj_database_url.config()
-
-    DEBUG = (os.environ['DEBUG'] == 'yes') if 'DEBUG' in os.environ else False
-
-    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-    STATIC_ROOT = 'staticfiles'
-    STATIC_URL = '/static/'

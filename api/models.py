@@ -12,11 +12,12 @@ class Channel(models.Model):
 class Message(models.Model):
     channel = models.ForeignKey(Channel)
     message = models.TextField()
-    latitude = models.IntegerField()
-    longitude = models.IntegerField()
+    latitude = models.FloatField()
+    longitude = models.FloatField()
     description = models.CharField(max_length=255)
+    mobile_number = models.CharField(max_length=255)
+    sentiment = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return '[%s] %s...' % (self.channel, self.message[:80])

@@ -1,3 +1,4 @@
+requests
 django
 dj-static
 dj-database-url

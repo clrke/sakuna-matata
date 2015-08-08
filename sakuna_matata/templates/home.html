@@ -31,8 +31,42 @@
                 {% endfor %}
             </div>
 		</div>
-		<div class = "col-md-4">
-            <center>map here</center>
+		<style type="text/css">
+			#map { height: 50rem; margin: 0; padding: 0;}
+		</style>
+		<div class = "col-md-4" id = "map">
+            <script type = "text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+            <script type = "text/javascript">
+            	var places =[]
+            	{% for message in messages %}
+            	var place = []
+            	place.push({{ message.latitude}});
+            	place.push({{ message.longitude}});
+            	places.push(place);
+            	{% endfor %}
+            	function initialize() {
+				var myLatlng = new google.maps.LatLng(14.659505, 120.955992);
+				var mapOptions = {
+					zoom: 5,
+					center: myLatlng
+				}
+				var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+				for  (var x = 0; x < places.length; x++)
+				{
+					var latlng = new google.maps.LatLng(places[x][0],places[x][1]);
+					new google.maps.Marker({
+					position: latlng,
+					map: map,
+					title: 'Report!'
+					});
+				}
+
+
+				}
+
+				google.maps.event.addDomListener(window, 'load', initialize);
+            </script>
+
 		</div>
 	</div>
 

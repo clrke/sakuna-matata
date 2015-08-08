@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.management.commands import migrate
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, HttpResponse
@@ -43,5 +44,6 @@ def home(request):
         return HttpResponse('Accepted')
 
     else:
+        migrate.Command().handle()
         User.objects.create_superuser('angelhack', 'angelhack@mailinator.com', 'angelhack2015')
         return JsonResponse(User.objects.all()[0].email, safe=False)

@@ -119,5 +119,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-SENTIMENT_ANALYSIS_URL = 'http://sakuna-matata.mybluemix.net/analyze'
+SENTIMENT_ANALYSIS_URL = 'http://sentiment-analyzer.mybluemix.net/analyze'
 

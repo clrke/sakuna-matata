@@ -27,7 +27,30 @@
                     MESSAGES
                 </div>
                 {% for message in current_channel.message_set.all %}
-                    <a href="#" class="list-group-item"> {{ message.message }} </a>
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <b>PHONE NO.: </b> {{ message.mobile_number }}
+                            </div>
+                            <div class="col-md-6">
+                                <div style="text-align: right;">
+                                    {{ message.created_at }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <b>Address: </b> {{ message.description }}
+                            </div>
+                            <div class="col-md-5">
+                                <div style="text-align: right;">
+                                    <b>Predicted Sentiment: </b> {{ message.sentiment }}
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <p> {{ message.message }} </p>
+                    </div>
                 {% endfor %}
             </div>
 		</div>

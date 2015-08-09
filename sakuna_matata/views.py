@@ -22,7 +22,6 @@ def home(request, name):
         current_channel = current_channel[0]
         messages = current_channel.message_set.all()
     else:
-        current_channel = Channel.objects.all()[0]
         messages = Message.objects.all()
 
     for message in messages:
@@ -36,6 +35,6 @@ def home(request, name):
 
     return render(request, 'home.html', {
         'channels': channels,
-        'current_channel': current_channel,
+        'name': name,
         'messages': messages
     })

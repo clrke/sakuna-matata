@@ -12,13 +12,13 @@
                 <div class="list-group-item list-group-item-heading">
                     CHANNELS
                 </div>
-                {% if current_channel.name == '' %}
+                {% if name == '' %}
                     <div class="list-group-item list-group-item-success"> #all </div>
                 {% else %}
                     <a href="/channels/" class="list-group-item"> #all </a>
                 {% endif %}
                 {% for channel in channels %}
-                    {% if channel.name == current_channel.name %}
+                    {% if channel.name == name %}
                         <div class="list-group-item list-group-item-success"> {{ channel }} </div>
                     {% else %}
                         <a href="/channels/{{ channel.name }}" class="list-group-item"> {{ channel }} </a>
@@ -45,17 +45,12 @@
                         </div>
                         <div class="row">
                             <div class="col-md-7">
-                                <b>Address: </b> {{ message.description }}
+                                <b>Aggregated sentiment (within a radius): </b> {{ message.total_sentiment }}
                             </div>
                             <div class="col-md-5">
                                 <div style="text-align: right;">
                                     <b>Predicted Sentiment: </b> {{ message.sentiment }}
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <b>Aggregated sentiment (within a radius): </b> {{ message.total_sentiment }}
                             </div>
                         </div>
                         <br/>

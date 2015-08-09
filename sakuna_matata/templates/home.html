@@ -2,8 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel = "stylesheet" type="text/css" href = "{% static 'bootstrap/css/bootstrap.css'%} ">
-	<title>Test</title>
+	<title>Aggregated Disasters</title>
+    <link rel="stylesheet" type="text/css" href = "{% static 'bootstrap/css/bootstrap.css'%} ">
+    <link rel="shortcut icon" href="{% static 'favicon.ico'%}"/>
 </head>
 <body class="container">
 	<div class = "row">
@@ -12,21 +13,30 @@
                 <div class="list-group-item list-group-item-heading">
                     CHANNELS
                 </div>
+                {% if name == '' %}
+                    <div class="list-group-item list-group-item-success"> #all </div>
+                {% else %}
+                    <a href="/channels/" class="list-group-item"> #all </a>
+                {% endif %}
                 {% for channel in channels %}
-                    {% if channel.name == current_channel.name %}
+                    {% if channel.name == name %}
                         <div class="list-group-item list-group-item-success"> {{ channel }} </div>
                     {% else %}
                         <a href="/channels/{{ channel.name }}" class="list-group-item"> {{ channel }} </a>
                     {% endif %}
                 {% endfor %}
             </div>
+            <form method="GET" class="form form-horizontal">
+                <input type="number" name="threshold" class="form-control" size="3" value="{{ threshold }}">
+                <button type="submit" class="btn btn-primary">Go</button>
+            </form>
 		</div>
 		<div class = "col-md-6">
             <div class="list-group">
                 <div class="list-group-item list-group-item-heading">
                     MESSAGES
                 </div>
-                {% for message in current_channel.message_set.all %}
+                {% for message in messages %}
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-md-6">
@@ -40,7 +50,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-7">
-                                <b>Address: </b> {{ message.description }}
+                                <b>Aggregated sentiment (within a radius): </b> {{ message.total_sentiment }}
                             </div>
                             <div class="col-md-5">
                                 <div style="text-align: right;">
@@ -62,15 +72,12 @@
             <script type = "text/javascript">
             	var places =[]
             	{% for message in messages %}
-            	var place = []
-            	place.push({{ message.latitude}});
-            	place.push({{ message.longitude}});
-            	places.push(place);
+                    places.push([{{ message.latitude}}, {{ message.longitude }}]);
             	{% endfor %}
             	function initialize() {
-				var myLatlng = new google.maps.LatLng(14.659505, 120.955992);
+				var myLatlng = new google.maps.LatLng(14.558125, 121.0181183);
 				var mapOptions = {
-					zoom: 5,
+					zoom: 15,
 					center: myLatlng
 				}
 

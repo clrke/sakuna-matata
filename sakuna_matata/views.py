@@ -17,6 +17,7 @@ def distance(xi, x):
 
 def home(request, name):
     channels = Channel.objects.all()
+    threshold = int(request.GET['threshold']) if 'threshold' in request.GET else 999
     current_channel = Channel.objects.filter(name=name)
     if current_channel.count():
         current_channel = current_channel[0]
@@ -33,8 +34,11 @@ def home(request, name):
 
     messages = sorted(messages, key=lambda m: m.total_sentiment)
 
+    messages = [message for message in messages if message.total_sentiment <= threshold]
+
     return render(request, 'home.html', {
         'channels': channels,
         'name': name,
-        'messages': messages
+        'messages': messages,
+        'threshold': threshold,
     })

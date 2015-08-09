@@ -26,6 +26,10 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            <form method="GET" class="form form-horizontal">
+                <input type="number" name="threshold" class="form-control" size="3" value="{{ threshold }}">
+                <button type="submit" class="btn btn-primary">Go</button>
+            </form>
 		</div>
 		<div class = "col-md-6">
             <div class="list-group">

@@ -12,6 +12,11 @@
                 <div class="list-group-item list-group-item-heading">
                     CHANNELS
                 </div>
+                {% if current_channel.name == '' %}
+                    <div class="list-group-item list-group-item-success"> #all </div>
+                {% else %}
+                    <a href="/channels/" class="list-group-item"> #all </a>
+                {% endif %}
                 {% for channel in channels %}
                     {% if channel.name == current_channel.name %}
                         <div class="list-group-item list-group-item-success"> {{ channel }} </div>
@@ -26,7 +31,7 @@
                 <div class="list-group-item list-group-item-heading">
                     MESSAGES
                 </div>
-                {% for message in current_channel.message_set.all %}
+                {% for message in messages %}
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-md-6">
@@ -48,6 +53,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <b>Aggregated sentiment (within a radius): </b> {{ message.total_sentiment }}
+                            </div>
+                        </div>
                         <br/>
                         <p> {{ message.message }} </p>
                     </div>
@@ -62,10 +72,7 @@
             <script type = "text/javascript">
             	var places =[]
             	{% for message in messages %}
-            	var place = []
-            	place.push({{ message.latitude}});
-            	place.push({{ message.longitude}});
-            	places.push(place);
+                    places.push([{{ message.latitude}}, {{ message.longitude }}]);
             	{% endfor %}
             	function initialize() {
 				var myLatlng = new google.maps.LatLng(14.659505, 120.955992);
